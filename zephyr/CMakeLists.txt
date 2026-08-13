@@ -12,33 +12,41 @@ zephyr_include_directories(${ZEPHYR_CURRENT_MODULE_DIR}/cligen)
 # Core CLIgen source files
 zephyr_library_sources(
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_buf.c
+  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_callback.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_cv.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_cvec.c
+  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_expand.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_handle.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_io.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_match.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_object.c
+  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_parsetree.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_print.c
+  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_pt_head.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_read.c
+  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_regex.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_result.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_syntax.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_tab.c
+  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_tutorial.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_util.c
 )
 
-# Optionally add parser sources if bison/flex are available
-# These would need to be pre-generated for embedded use
-if(EXISTS ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_parse.c)
-  zephyr_library_sources(
-    ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_parse.c
-    ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_parsetree.c
-  )
-endif()
+# Exclude files not suitable for embedded:
+# - cligen_file.c (terminal/file I/O, termios)
+# - cligen_getline.c (terminal line editing, termios)
+# - cligen_history.c (command history with file I/O)
+# - cligen_hello.c (example/test code)
 
 # Compiler flags
 zephyr_library_compile_definitions(
   HAVE_CONFIG_H
   _GNU_SOURCE
+)
+
+# Include Zephyr compatibility config
+zephyr_library_compile_definitions(
+  CLIGEN_ZEPHYR_CONFIG="${ZEPHYR_CURRENT_MODULE_DIR}/zephyr/cligen_config.h"
 )
 
 endif() # CONFIG_CLIGEN
