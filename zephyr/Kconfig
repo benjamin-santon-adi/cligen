@@ -1,0 +1,53 @@
+# Copyright (c) 2024 Benjamin Santon
+# SPDX-License-Identifier: Apache-2.0
+
+config CLIGEN
+	bool "CLIgen - Command-Line Interface Generator"
+	help
+	  Enable CLIgen library for parsing and generating command-line interfaces.
+	  CLIgen is used by Clixon for CLI parsing and command generation.
+
+if CLIGEN
+
+config CLIGEN_BUF_SIZE
+	int "Default buffer size for CLIgen"
+	default 8192
+	help
+	  Default size for buffers used in CLIgen parsing and generation.
+
+config CLIGEN_CBUF_ALLOC_UNIT
+	int "Cbuf allocation unit size"
+	default 1024
+	help
+	  Size of allocation units for dynamic cbuf expansion.
+
+config CLIGEN_CVEC_ALLOC_UNIT
+	int "Cvec allocation unit size"
+	default 16
+	help
+	  Size of allocation units for dynamic cvec expansion.
+
+config CLIGEN_TABMODE_COLUMNS
+	bool "Enable column mode for tab completion"
+	default y
+	help
+	  Enable column-based display for tab completion results.
+
+config CLIGEN_COMPAT_STDARG
+	bool "Enable stdarg compatibility mode"
+	default y
+	help
+	  Use stdarg.h for variable argument handling (recommended for Zephyr).
+
+config CLIGEN_UTF8_EXPERIMENTAL
+	bool "Enable experimental UTF-8 support"
+	default n
+	help
+	  Enable experimental UTF-8 character support in CLIgen.
+	  This is not fully tested on embedded platforms.
+
+module = CLIGEN
+module-str = CLIgen
+source "subsys/logging/Kconfig.template.log_config"
+
+endif # CLIGEN
