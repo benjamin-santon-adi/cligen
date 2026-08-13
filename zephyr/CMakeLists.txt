@@ -7,7 +7,7 @@ zephyr_library()
 
 # Include directories
 zephyr_include_directories(${ZEPHYR_CURRENT_MODULE_DIR})
-zephyr_include_directories(${ZEPHYR_CURRENT_MODULE_DIR}/cligen)
+zephyr_include_directories(${ZEPHYR_CURRENT_MODULE_DIR}/zephyr)
 
 # Core CLIgen source files
 zephyr_library_sources(
@@ -42,9 +42,12 @@ zephyr_library_compile_definitions(
   _GNU_SOURCE
 )
 
-# Include Zephyr compatibility config
-zephyr_library_compile_definitions(
-  CLIGEN_ZEPHYR_CONFIG="${ZEPHYR_CURRENT_MODULE_DIR}/zephyr/cligen_config.h"
+# Disable warnings for upstream code
+zephyr_library_compile_options(
+  -Wno-error
+  -Wno-unused-parameter
+  -Wno-unused-variable
+  -Wno-unused-function
 )
 
 endif() # CONFIG_CLIGEN
