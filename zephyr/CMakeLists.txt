@@ -27,8 +27,6 @@ zephyr_library_sources(
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_regex.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_result.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_syntax.c
-  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_tab.c
-  ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_tutorial.c
   ${ZEPHYR_CURRENT_MODULE_DIR}/cligen_util.c
 )
 
@@ -36,7 +34,7 @@ zephyr_library_sources(
 # - cligen_file.c (terminal/file I/O, termios)
 # - cligen_getline.c (terminal line editing, termios)
 # - cligen_history.c (command history with file I/O)
-# - cligen_hello.c (example/test code)
+# - cligen_hello.c, cligen_tutorial.c (example/test code)
 
 # Compiler flags
 zephyr_library_compile_definitions(
