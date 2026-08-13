@@ -3,9 +3,12 @@
 
 config CLIGEN
 	bool "CLIgen - Command-Line Interface Generator"
+	select POSIX_API if !POSIX_API
+	select PICOLIBC if !PICOLIBC
 	help
 	  Enable CLIgen library for parsing and generating command-line interfaces.
 	  CLIgen is used by Clixon for CLI parsing and command generation.
+	  Requires POSIX API and picolib for standard library compatibility.
 
 if CLIGEN
 
